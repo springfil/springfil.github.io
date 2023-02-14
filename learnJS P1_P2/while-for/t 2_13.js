@@ -64,4 +64,10 @@ if(n%2===0){
         console.log(x)
         }
 }
- 
+//Найдите наибольший общий делитель чисел a и b. ( алгоритм Евклида и цикл while).
+let a=+prompt('a','');
+let b=+prompt('b','');
+    while(a!=0 && b!=0){
+        a>b?a=a%b:b=b%a;
+    }
+    console.log(a+b);

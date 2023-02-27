@@ -25,6 +25,6 @@ console.log('На полках ' + sumAllBooksOnTheShelves(10,20,5) + ' книг
 let jsTime = prompt('Сколько сегодня затрекал времени',);
 
 let whoAreUInJavascript = (jsTime>=3)?
-    () => alert('Мб что-то получится') :
+    () => alert('красава') :
     () => alert(`Ты абоба  \n Надо больше ботать`);
 whoAreUInJavascript();    

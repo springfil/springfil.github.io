@@ -88,11 +88,10 @@ obj.b.c = 'lol';
 console.log(obj); //a:1, b:{c:'lol'}
 console.log(newObj); // a:1, b:{c:2}
 
-//structuredClone(original)
+//structuredClone()
 const original = { name: "MDN" };
 original.itself = original;
 
-// Clone it
 const clone = structuredClone(original);
 console.log(clone !== original); 
 console.log(clone.name === "MDN"); 

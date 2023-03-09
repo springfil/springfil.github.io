@@ -87,6 +87,7 @@ let newObj = JSON.parse(JSON.stringify(obj));
 obj.b.c = 'lol';
 console.log(obj); //a:1, b:{c:'lol'}
 console.log(newObj); // a:1, b:{c:2}
+//копирует свойства в порядке их создания, если они не целочисленные 
 
 //structuredClone()
 const original = { name: "MDN" };

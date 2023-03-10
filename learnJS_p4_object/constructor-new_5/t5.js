@@ -66,3 +66,73 @@ person1.greet();   //  Привет
 person1.greet;   // f{}
 
 
+
+// Создание класса объектов с помощью конструктора (создание классов-конструкторов):
+
+// function Имя_класса_объектов(св-во1, св-во2){
+// 	this.свойство1 = св-во1; // значение для свойства1 берется из значения аргумента св-во1
+// 	this.свойство2 = св-во2;
+// }
+// Создание нового объекта на основе конструктора для класса объектов:
+
+// let имя_объекта = new имя_класса("значение_св-ва1","значение_св-ва2");
+// или
+// let имя_объекта =new имя_класса();
+// имя_объекта.св-во1="значение_св-ва1";
+// имя_объекта.св-во2="значение_св-ва2";
+
+// Добавление свойств к классу объектов:
+Student.prototype.biology = "отлично";
+
+
+
+// Добавить к конструктору объектов Browser метод aboutBrowser,
+// который будет выводить на экран обозревателя информацию о свойствах этого объекта
+function showBrowser() {
+    console.log("Обозреватель: " + this.name + " " + this.version);
+  }
+   
+function Browser(name, version) {
+    this.name = name;
+    this.version = version;
+    this.aboutBrowser = showBrowser;
+  }
+   
+let myBrowser=new Browser("Хром", 'vХЗ');
+myBrowser.aboutBrowser();
+
+//или при помощи функции описанной внутри конструктора 
+function Browser(name, version) {
+    this.name = name;
+    this.version = version;
+    this.aboutBrowser = function(){
+      console.log("Обозреватель: " + name + " " + version);
+    }
+  }
+
+let myBrowser=new Browser("Хром", 'vХЗ');
+myBrowser.aboutBrowser();
+
+
+
+// Создать класс объектов (Tour) для работы туристической фирмы 
+// с методом подсчета стоимости поездки из расчета:
+//  количества человек * количество дней * тариф страны. 
+//  Создать экземпляр объекта turkeyTour со значениями свойств. 
+//  Вывести все свойства объекта на экран. Метод объекта расчет создавать на основе функции.
+
+function Tour(people, days, rate){
+    this.people = people;
+    this.days = days;
+    this.rate = rate;
+    this.calc = function(){
+        console.log(this.rate * this.people * this.days)
+    }
+    }
+
+const turkeyTour = new Tour(2, 7, 100);
+for (let key in turkeyTour) {
+    console.log(key + " " + turkeyTour[key])
+  }
+
+turkeyTour.calc();  

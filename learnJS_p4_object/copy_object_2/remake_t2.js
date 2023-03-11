@@ -26,8 +26,8 @@ for(key in mainObj){
     objCopy[key] = mainObj[key] // копируем каждое св-во.
 }
 
-console.log(copy(mainObj)); // {a: 1, b: 2, c: {…}}
-
+console.log(mainObj); // {a: 1, b: 2, c: {…}}
+console.log(objCopy);
 
 
 //Object.assign - копирует только топ-лвл св-ва.

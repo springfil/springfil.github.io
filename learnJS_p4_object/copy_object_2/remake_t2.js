@@ -40,16 +40,16 @@ let objCopy = Object.assign({},obj);
 console.log(objCopy);
 
 //но вложенные св-ва. доступны как оригиналу так и копии 
-const obj = {
-    a: 1,
-    b: 2,
-}
-let objCopy = Object.assign({},obj);
+    const obj = {
+        a: 1,
+        b: 2,
+    }
+    let objCopy = Object.assign({},obj);
 
-console.log(objCopy);
-objCopy.b = 80;
-console.log(objCopy);// 1 // 80
-console.log(obj)//1 // 2 
+    console.log(objCopy);
+    objCopy.b = 80;
+    console.log(objCopy);// 1 // 80
+    console.log(obj)//1 // 2 
 
 //Object.assign с вложенными св-вами.
 const obj = {

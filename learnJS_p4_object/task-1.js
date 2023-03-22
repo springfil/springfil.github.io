@@ -88,3 +88,22 @@ let student1 = {
   student1.statement() 
   let anotherVar = student1.statement
   anotherVar()  
+
+  const a = {
+    aboba: 3,
+    asjdf() {
+      return this.aboba;
+    }
+  }
+  const b = {};
+  
+  const obj = {
+    [a]: 3,
+    [b]: 4,
+    [a.asjdf()]: 45,
+    ['a.aboba']: 25,
+  }
+  
+  for(const key in obj) {
+    console.log(key, obj[key]);
+  }

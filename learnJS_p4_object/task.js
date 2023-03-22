@@ -52,7 +52,7 @@ const person = {
    
 }
 //
-[Symbol.toPrimitive]: (hint) =>{ // функция принимает тип преобразования хинт
+[Symbol.toPrimitive]: function (hint) { // функция принимает тип преобразования хинт
  console.log(hint);
  switch(hint) {
     case 'string':

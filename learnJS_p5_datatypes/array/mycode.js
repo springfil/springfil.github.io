@@ -33,3 +33,35 @@ function Div2(n) {
     }
     return x.join('');
 }
+
+
+
+// напишите функцию shortcut(string) которая принимает строку, убирает 
+//из неё гласные a,e,i,o,u (только если они не заглавные) и возвращает то что осталось в виде строки
+function shortcut(str){
+    let stackCut = ['a','e','i','o','u'];
+    let strCut = str.split('');
+    let result = [];
+    
+    for(let i = 0; i < strCut.length; i ++){ // для всех элементов массива str
+      if(!stackCut.includes(strCut[i]))
+        result.push(strCut[i])
+      // for( let j = 0; j < stackCut.length; j++ ){
+      //   if (strCut[i] === stackCut[j]) 
+      // }
+    }
+    return result.join('')
+  }
+  console.log(shortcut('hello'));
+  console.log(shortcut('HELLO'));
+  console.log(shortcut('How Are You'));
+
+
+// Динамичекая длина??? 
+let a = [1, 2, 3];
+
+a.length = 1;
+console.log(a);
+
+a.length = 5;
+console.log(a); // заполнит empty (шо это за сущность)

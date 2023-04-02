@@ -14,3 +14,14 @@ const obj = {
   for (const i of obj) {
     console.log(i)
   }
+
+
+//строка тож перебираемый обьект
+const nums = '12345'
+
+for (const num of nums) {
+  console.log(num)
+}//1 2 3 4 5
+
+
+//---------

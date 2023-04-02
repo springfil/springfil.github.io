@@ -48,4 +48,16 @@ console.log(multiEven);
 //узнаем есть ли в multiEven повторяющиеся эл-ты
 const dupl = (new Set(multiEven).size) !== multiEven.length;
 console.log (dupl);
+
+//скок там 0
+const howZero = multiEven.filter((x) => x == 0).length;
+console.log(howZero);
+
+//выведем кол-во 0 
+let zeroIn = 0;
+multiEven.forEach(function(item, index) {
+  if(item === 0) zeroIn++;
+});
+console.log('кол-во 0 = '+zeroIn) // кол-во нулей равно 3
+
 }

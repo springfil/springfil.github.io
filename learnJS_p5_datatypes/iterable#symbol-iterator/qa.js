@@ -11,8 +11,10 @@ const symba = Symbol.for('метка');
 obj1[symba] = '1234';
 
 function checkDescription (obj, symbolDescription){
-    let checkSym = Symbol.keyFor(symbolDescription); 
+    let checkSym = Symbol.for(symbolDescription); 
     console.log(checkSym)
+
+    console.log((obj[checkSym] !== null && obj[checkSym] !== undefined) ? 1 : 0)
 }
 
-checkDescription(obj1, symba)
+checkDescription(obj1, 'метка')

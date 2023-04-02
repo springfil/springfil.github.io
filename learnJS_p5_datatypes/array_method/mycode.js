@@ -1,4 +1,4 @@
-// You will be given an array of objects (hashes in ruby) representing data about developers who have signed up to attend the coding meetup that you are organising for the first time.
+{// You will be given an array of objects (hashes in ruby) representing data about developers who have signed up to attend the coding meetup that you are organising for the first time.
 
 // Your task is to return the number of JavaScript developers coming from Europe.
 
@@ -18,3 +18,34 @@ var list = [
 function countDevelopers(list) {
     return list.filter(x=>x.continent=='Europe'&&x.language=='JavaScript').length
   }
+}
+
+
+{
+//Проверю массив на массивность)
+let arr = [];
+console.log(Array.isArray(arr));// true
+//------------
+
+// заполню  0 
+let arr2 = Array(5).fill(0);
+console.log(arr2);//[0 0 0 0 0]
+
+//хочу какие-то числа в порядке возрастания
+const arr3 = arr2.map( function(val, index) {return index + 1;} );
+console.log(arr3) ;// 1 2 3 4 5
+
+//найти сумму всех элементов 
+const sum = arr3.reduce((a, b) => a + b, 0);
+console.log(sum); //15
+
+//возведем четные эл-ты в квадрат , а нечетные обнулим
+const multiEven = [1,2,3,4,5].map(
+  (val) => val % 2 == 0 ? val*val : val = 0, 1
+);
+console.log(multiEven);
+
+//узнаем есть ли в multiEven повторяющиеся эл-ты
+const dupl = (new Set(multiEven).size) !== multiEven.length;
+console.log (dupl);
+}

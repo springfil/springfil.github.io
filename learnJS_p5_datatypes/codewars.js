@@ -58,7 +58,7 @@ You are going to be given an array of integers. Your job is to take that
  function findEvenIndex(arr) {
     // true или -1
     return arr.findIndex(
-      (_, i) =>
+      (item, i) =>
         // [левый] и суммируем
         arr.slice(0, i).reduce((acc, c) => acc + c, 0) ===
         // [правый] и суммируем

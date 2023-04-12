@@ -24,19 +24,19 @@ console.log(recursionPow(5, 3)); // 125
 // 3. Выполняются вложенные вызовы, для каждого создается новый контекст выполнения
 // 4. Первоначальный контекст выполнения достается из стека и продолжается выполнение
 
-// Работая с рекурсией необходимо учитывать объем стека. 
+// Работая с рекурсией необходимо учитывать объем стека.
 
 // Связанный список - структура данных, в которой каждый эл-т содержит ссылку на соседний эл-т
 // Удобно модифицировать (делить, добавлять, удалять и пр.) - эффективнее чем shift, unshift,
 // но к последним эл-там в списке удобнее обращаться через массив
 {
-const arrExample = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }];
-arrExample.shift();
-console.log(arrExample[0].a); // 2
+  const arrExample = [{ a: 1 }, { a: 2 }, { a: 3 }, { a: 4 }];
+  arrExample.shift();
+  console.log(arrExample[0].a); // 2
 
-let linkedListExample = {
-  a: 1,
-  next: { a: aboba, next: { a: 3, next: { a: 0, next: undefined } } },
-};
-console.log(linkedListExample.next.a); // aboba 
+  let linkedListExample = {
+    a: 1,
+    next: { a: aboba, next: { a: 3, next: { a: 0, next: undefined } } },
+  };
+  console.log(linkedListExample.next.a); // aboba
 }

@@ -1,5 +1,5 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -39,14 +39,15 @@
       }
       #time {
         margin: 15px auto;
-        width: 300px;
+        width: 100px;
         text-align: center;
       }
     </style>
   </head>
   <body>
+    <label for="time">Введите количество минут (1-1000):</label>
     <div>
-      <input type="text" name="time" id="time" />
+      <input type="number" id="time" name="time" min="1" max="10" />
     </div>
     <div id="timer"></div>
     <div>

@@ -27,9 +27,9 @@
     </style>
   </head>
   <body>
-    <label for="time">Введите количество минут (1-1000):</label>
+    <label for="time">Введите количество минут (0-1000):</label>
     <div>
-      <input type="number" id="time" name="time" min="1" max="10" />
+      <input type="number" id="time" name="time" min="" max="1000" onkeydown="if (event.keyCode === 189 && this.value === '') return false;"/>
     </div>
     <div id="timer"></div>
     <div>

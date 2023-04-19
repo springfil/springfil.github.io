@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Таймер</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      #start,
+      #stop,
+      #timer {
+        margin: 15px;
+      }
+      #start,
+      #stop {
+        position: relative;
+        bottom: -30px;
+      }
+      #time {
+        margin: 15px auto;
+        width: 300px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="text" name="time" id="time" />
+    </div>
+    <div id="timer"></div>
+    <div>
+      <button id="start">start</button>
+      <button id="stop">stop</button>
+    </div>
+
+    <script src="/learnJS_p6_advanced-functions/8_settimeout-setinterval/mycode.js"></script>
+  </body>
+</html>

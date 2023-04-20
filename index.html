@@ -29,7 +29,7 @@
   <body>
     <label for="time">Введите количество минут (0-1000):</label>
     <div>
-      <input type="number" id="time" name="time" min="0" max="1000" onkeydown="if(event.keyCode === 189 || (this.value === '' && event.keyCode === 109)) return false; if(parseInt(this.value + event.key) < 1 || parseInt(this.value + event.key) > 10) return false;"/>
+      <input type="number" id="time" name="time" min="0" max="1000" onkeydown="if(event.keyCode === 189 || (this.value === '' && event.keyCode === 109)) return false;"/>
     </div>
     <div id="timer"></div>
     <div>

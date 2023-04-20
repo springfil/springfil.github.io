@@ -18,7 +18,7 @@ function f11() {
 let user11 = {
   g: f11.bind(null),
 };
-user11.g(); // Output: globalThis
+user11.g(); // globalThis
 
 
 

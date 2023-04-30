@@ -57,6 +57,9 @@ Object.defineProperty(obj, "maxim", {
     return obj._maxim.toUpperCase();
   },
   set(value) {
+    if(value === 'zopa'){
+      console.log("zopa2")
+    }
     obj._maxim = value.toUpperCase();
   },
   enumerable: true,

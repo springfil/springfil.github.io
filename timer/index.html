@@ -47,13 +47,13 @@
   <body>
     <form>
       <label for="hours">Часы:</label>
-      <input type="number" id="hours" value="0" min="0" max="1000" onkeydown="if(event.keyCode === 189 || (this.value === '' && event.keyCode === 109)) return false;"/>
+      <input type="number" id="hours" value="0" min="0" max="1000" />
 
       <label for="minutes">Минуты:</label>
-      <input type="number" id="minutes" value="0" min="0" max="60" onkeydown="if(event.keyCode === 189 || (this.value === '' && event.keyCode === 109)) return false;"/>
+      <input type="number" id="minutes" value="0" min="0" max="60" />
 
       <label for="seconds">Секунды:</label>
-      <input type="number" id="seconds" value="0" min="0" max="60" onkeydown="if(event.keyCode === 189 || (this.value === '' && event.keyCode === 109)) return false;"/>
+      <input type="number" id="seconds" value="0" min="0" max="60" />
     </form>
 
     <div id="buttons-container">
@@ -64,6 +64,6 @@
 
     <div id="countdown"></div>
 
-    <script src="script.js"></script>
+    <script src="/timer/script.js"></script>
   </body>
 </html>

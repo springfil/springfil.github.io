@@ -7,7 +7,7 @@ const RESET_BUTTON = document.getElementById("reset");
 const COUNT_DOWN_DIV = document.getElementById("countdown");
 
 let countdown;
-let remainingMilliseconds; 
+let remainingMilliseconds;
 
 function antiPaste(e) {
   const clipboardData = e.clipboardData.getData("text/plain"); 
@@ -124,5 +124,6 @@ RESET_BUTTON.addEventListener("click", resetCountdown);
   На следующий синк 
   //свой помодоро таймер 
   // есть помидорка свгшка 
+  pfy
 */
 }

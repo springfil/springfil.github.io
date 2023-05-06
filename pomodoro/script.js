@@ -6,16 +6,20 @@ const PROGRESS_BAR = document.getElementById("html");
 const START_BUTTON = document.getElementById("start");
 const STOP_BUTTON = document.getElementById("stop");
 
-
 POMODORO_BUTTON.addEventListener("click", setTimer.bind(null, "pomodoro"));
 SHORTBREAK_BUTTON.addEventListener("click", setTimer.bind(null, "short-break"));
 LONGBREAK_BUTTON.addEventListener("click", setTimer.bind(null, "long-break"));
 STOP_BUTTON.addEventListener("click", stopTimer);
 
+// const timers = {
+//   "pomodoro": 25 * 60,
+//   "short-break": 5 * 60,
+//   "long-break": 10 * 60,
+// };
 const timers = {
-  pomodoro: 25*60,
-  "short-break": 5 * 60,
-  "long-break": 10 * 60,
+  "pomodoro": { duration: 25 * 60, animationDuration: 1500 },
+  "short-break": { duration: 5 * 60, animationDuration: 300 },
+  "long-break": { duration: 10 * 60, animationDuration: 600 }
 };
 
 let currentTimer = null;
@@ -28,18 +32,41 @@ const updateTimer = () => {
     .padStart(2, "0");
   const seconds = (timeLeft % 60).toString().padStart(2, "0");
 
-  const progressBar = document.querySelector('.progress-bar');
-  progressBar.style.setProperty('--progress-value', (1 - timeLeft / 1500).toFixed(2));
-  //progressBar.classList.add('active');
+  const progressBar = document.querySelector(".progress-bar");
+  progressBar.style.setProperty(
+    "--progress-value",
+    (1 - timeLeft / 1500).toFixed(2)
+  );
+  progressBar.classList.add("active");
 
   PROGRESS_BAR.value = timeLeft;
   TIMER_ELEMENT.innerText = `${minutes}:${seconds}`;
-  document.getElementById("progress-counter").innerText = `${minutes}:${seconds}`;
+  document.getElementById(
+    "progress-counter"
+  ).innerText = `${minutes}:${seconds}`;
 };
 
+// function setTimer(timer) {
+//   stopTimer();
+//   currentTimer = timers[timer];
+//   //document.documentElement.style.setProperty('--progress-value', '0');
+//   timeLeft = timers[timer];
+//   updateTimer();
+
+//   //document.documentElement.style.setProperty('--current-timer',currentTimer);
+//   // progressBar.style.setProperty('--progress-max', currentTimer);
+
+//   // const htmlProgress = document.getElementById("html");
+//   // htmlProgress.max = currentTimer;
+
+// }
 function setTimer(timer) {
-  currentTimer = timers[timer];
-  timeLeft = timers[timer];
+  stopTimer();
+  currentTimer = timers[timer].duration;
+  timeLeft = currentTimer;
+  
+  // PROGRESS_BAR.style.setProperty('--animation-duration', `${timers[timer].animationDuration}s`);
+  PROGRESS_BAR.style.setProperty('--animation-duration', `${currentTimer}s`);
   updateTimer();
 }
 
@@ -53,8 +80,12 @@ function startTimer() {
     timeLeft = timers["pomodoro"];
   }
 
-  let progressBar = document.querySelector('.progress-bar');
-  progressBar.classList.add('active');
+  //document.documentElement.style.setProperty('--current-timer',currentTimer);
+
+  let progressBar = document.querySelector(".progress-bar");
+  progressBar.style.animationPlayState = "running";
+  progressBar.classList.add("active");
+ 
 
   timerId = setInterval(() => {
     timeLeft--;
@@ -64,29 +95,36 @@ function startTimer() {
       timeLeft = null;
       START_BUTTON.disabled = false;
       STOP_BUTTON.disabled = true;
+      PROGRESS_BAR.value = 0;
+      document.querySelector(".progress-bar").classList.remove("active");
       chooseBreakType();
     }
 
     updateTimer();
   }, 1000);
 }
+
 function chooseBreakType() {
   const choice = confirm("Хорошо поработал, отдохнем?");
   const breakTypes = ["short-break", "long-break"];
   let breakChosen = false;
 
   if (choice) {
-    const breakType = breakTypes.map((type) => {
-      if (!breakChosen && confirm(`Выберите тип перерыва: ${type}?`)) {
-        breakChosen = true;
-        return type;
-      }
-      return null;
-    }).find(Boolean);
+    const breakType = breakTypes
+      .map((type) => {
+        if (!breakChosen && confirm(`Выберите тип перерыва: ${type}?`)) {
+          breakChosen = true;
+          return type;
+        }
+        return null;
+      })
+      .find(Boolean);
 
     if (breakType) {
       setTimer(breakType);
-      startTimer();
+      if (currentTimer !== null) { 
+        startTimer();
+      }
     }
   } else {
     setTimer("pomodoro");
@@ -98,7 +136,9 @@ function stopTimer() {
   clearInterval(timerId);
   START_BUTTON.disabled = false;
   STOP_BUTTON.disabled = true;
-
+  PROGRESS_BAR.value = 0;
+  document.querySelector(".progress-bar").style.animationPlayState = "paused"
+  //document.querySelector(".progress-bar").classList.remove("active");
   if (timeLeft !== null) {
     currentTimer = timeLeft;
   }
@@ -113,18 +153,21 @@ START_BUTTON.addEventListener("click", () => {
 // вынести в мапу таймерс
 // !currenttimer
 // чус брейк тайп мапа
-// прогресс бар компонент
+// прогресс бар 
 
-  // function chooseBreakType() {
-  //   const choice = confirm("Хорошо поработал, отдохнем?");
-  //   if (choice) {
-  //     const breakType = confirm("Короткий перерыв?")
-  //       ? "short-break"
-  //       : "long-break";
-  //     setTimer(breakType);
-  //     startTimer();
-  //   } else {
-  //     setTimer("pomodoro");
-  //     startTimer();
-  //   }
-  // }
+// function chooseBreakType() {
+//   const choice = confirm("Хорошо поработал, отдохнем?");
+//   if (choice) {
+//     const breakType = confirm("Короткий перерыв?")
+//       ? "short-break"
+//       : "long-break";
+//     setTimer(breakType);
+//     startTimer();
+//   } else {
+//     setTimer("pomodoro");
+//     startTimer();
+//   }
+// }
+
+//мб 
+//После каждых четырех таких сессий - длинный перерыв на 10 минут.

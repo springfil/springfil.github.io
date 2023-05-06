@@ -88,13 +88,15 @@ body {
   padding: 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.8s ease;
+  transition: background-color 0.5s ease;
+  transition: transform 0.5s ease-in-out;
 }
 
 #pomodoro:hover,
 #short-break:hover,
 #long-break:hover {
   background-color: #c0392b;
+  transform: scale(1.05);
 }
 
 .progress-bar-container {
@@ -113,27 +115,43 @@ body {
   align-items: center;
 }
 
-.progress-bar::before {
-  content: attr(data-timer) ;
-  counter-reset: percentage var(--progress-value);
-}
-
-
 @property --progress-value {
   syntax: '<integer>';
   inherits: false;
   initial-value: 0;
 }
 
+/* @property --progress-value {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+} */
+
+.progress-bar::before {
+  content: attr(data-timer) ;
+  counter-reset: percentage var(--progress-value);
+}
+
 @keyframes html-progress {
   to { --progress-value: 100; }
 }
 
-.html {
+/* .html {
   background: 
     radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-    conic-gradient(hotpink calc(var(--progress-value) * 1%), pink calc(var(--progress-value) * 1%));
-  animation: html-progress 1500s linear forwards;
+    conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
+  animation: html-progress 15s linear forwards;
+  animation-play-state: paused;
+} */
+
+.html {
+  --animation-duration: 15s;
+  
+  background: 
+    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
+     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
+  animation: html-progress var(--animation-duration) linear forwards;
+  animation-play-state: paused;
 }
 
 .html::before {
@@ -146,12 +164,66 @@ progress {
   height: 0;
 }
 
-#progress-bar-output{
+
+
+
+/* .html {
+  --animation-duration: 15s;
+  --conic-gradient-value: 0deg;
+  
+  background: 
+    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
+    conic-gradient(#c0392b var(--conic-gradient-value), #741f16 var(--conic-gradient-value));
+  animation: html-progress var(--animation-duration) linear forwards;
+  animation-play-state: paused;
+} */
+
+
+/* @property --current-timer {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+} */
+/* .html {
+  --animation-duration: 15s;
+  
+  background: 
+    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
+     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
+  animation: html-progress var(--animation-duration) linear forwards;
+  animation-play-state: paused;
+} */
+
+
+
+
+
+/* #progress-bar-output{
   font-family: "Courier New", Courier, monospace;
   font-size: 4rem;
   color: #000000;
   margin-bottom: 1rem;
   text-align: center;
   text-shadow: 0 0 10px rgb(255 0 0);
+} */
+
+/* animation: html-progress var(--current-timer)s linear forwards; */
+
+/* .html {
+  background: 
+    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
+    conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
+  animation-play-state: paused;
 }
 
+.html[data-timer="pomodoro"] {
+  animation-duration: 1500s;
+}
+
+.html[data-timer="short-break"] {
+  animation-duration: 300s;
+}
+
+.html[data-timer="long-break"] {
+  animation-duration: 900s;
+} */

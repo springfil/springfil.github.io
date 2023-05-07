@@ -121,11 +121,6 @@ body {
   initial-value: 0;
 }
 
-/* @property --progress-value {
-  syntax: '<integer>';
-  inherits: false;
-  initial-value: 0;
-} */
 
 .progress-bar::before {
   content: attr(data-timer) ;
@@ -136,23 +131,14 @@ body {
   to { --progress-value: 100; }
 }
 
-/* .html {
+.html {
   background: 
     radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation: html-progress 15s linear forwards;
-  animation-play-state: paused;
-} */
-
-.html {
-  --animation-duration: 15s;
-  
-  background: 
-    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
-     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
-  animation: html-progress var(--animation-duration) linear forwards;
+  animation: html-progress 1500s linear forwards;
   animation-play-state: paused;
 }
+
 
 .html::before {
   animation: html-progress 1s 1 forwards;
@@ -167,6 +153,11 @@ progress {
 
 
 
+  /* @property --progress-value {
+    syntax: '<integer>';
+    inherits: false;
+    initial-value: 0;
+  } */
 /* .html {
   --animation-duration: 15s;
   --conic-gradient-value: 0deg;
@@ -179,11 +170,18 @@ progress {
 } */
 
 
+
+
+
 /* @property --current-timer {
   syntax: '<integer>';
   inherits: false;
   initial-value: 0;
 } */
+
+
+
+
 /* .html {
   --animation-duration: 15s;
   
@@ -209,6 +207,10 @@ progress {
 
 /* animation: html-progress var(--current-timer)s linear forwards; */
 
+
+
+
+
 /* .html {
   background: 
     radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
@@ -226,4 +228,14 @@ progress {
 
 .html[data-timer="long-break"] {
   animation-duration: 900s;
+} */
+
+/* .html {
+  --animation-duration: 15s;
+  
+  background: 
+    radial-gradient(closest-side, #2c3e50 79%, transparent 80% 100%),
+     conic-gradient(#c0392b calc(var(--progress-value) * 1%), #741f16 calc(var(--progress-value) * 1%));
+  animation: html-progress var(--animation-duration) linear forwards;
+  animation-play-state: paused;
 } */

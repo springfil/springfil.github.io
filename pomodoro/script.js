@@ -11,20 +11,16 @@ SHORTBREAK_BUTTON.addEventListener("click", setTimer.bind(null, "short-break"));
 LONGBREAK_BUTTON.addEventListener("click", setTimer.bind(null, "long-break"));
 STOP_BUTTON.addEventListener("click", stopTimer);
 
-// const timers = {
-//   "pomodoro": 25 * 60,
-//   "short-break": 5 * 60,
-//   "long-break": 10 * 60,
-// };
 const timers = {
-  "pomodoro": { duration: 25 * 60, animationDuration: 1500 },
-  "short-break": { duration: 5 * 60, animationDuration: 300 },
-  "long-break": { duration: 10 * 60, animationDuration: 600 }
+  "pomodoro": 25 * 60,
+  "short-break": 5 * 60,
+  "long-break": 10 * 60,
 };
 
 let currentTimer = null;
 let timeLeft = null;
 let timerId = null;
+
 
 const updateTimer = () => {
   const minutes = Math.floor(timeLeft / 60)
@@ -46,28 +42,12 @@ const updateTimer = () => {
   ).innerText = `${minutes}:${seconds}`;
 };
 
-// function setTimer(timer) {
-//   stopTimer();
-//   currentTimer = timers[timer];
-//   //document.documentElement.style.setProperty('--progress-value', '0');
-//   timeLeft = timers[timer];
-//   updateTimer();
-
-//   //document.documentElement.style.setProperty('--current-timer',currentTimer);
-//   // progressBar.style.setProperty('--progress-max', currentTimer);
-
-//   // const htmlProgress = document.getElementById("html");
-//   // htmlProgress.max = currentTimer;
-
-// }
 function setTimer(timer) {
   stopTimer();
-  currentTimer = timers[timer].duration;
-  timeLeft = currentTimer;
-  
-  // PROGRESS_BAR.style.setProperty('--animation-duration', `${timers[timer].animationDuration}s`);
-  PROGRESS_BAR.style.setProperty('--animation-duration', `${currentTimer}s`);
-  updateTimer();
+  currentTimer = timers[timer];
+  document.documentElement.style.setProperty('--progress-value', '0');
+  timeLeft = timers[timer];
+  updateTimer(); 
 }
 
 function startTimer() {
@@ -171,3 +151,34 @@ START_BUTTON.addEventListener("click", () => {
 
 //мб 
 //После каждых четырех таких сессий - длинный перерыв на 10 минут.
+
+
+
+
+
+// const timers = {
+//   "pomodoro": { duration: 25 * 60, animationDuration: 1500 },
+//   "short-break": { duration: 5 * 60, animationDuration: 300 },
+//   "long-break": { duration: 10 * 60, animationDuration: 600 }
+// };
+
+
+
+{
+  
+    // function setTimer(timer) {
+      //   stopTimer();
+      //   currentTimer = timers[timer].duration;
+      //   timeLeft = currentTimer;
+      //   updateTimer();
+      
+      //   // PROGRESS_BAR.style.setProperty('--animation-duration', `${timers[timer].animationDuration}s`);
+      //   // PROGRESS_BAR.style.setProperty('--animation-duration', `${currentTimer}s`);
+      // }
+      
+      //document.documentElement.style.setProperty('--current-timer',currentTimer);
+      // progressBar.style.setProperty('--progress-max', currentTimer);
+      
+      // const htmlProgress = document.getElementById("html");
+      // htmlProgress.max = currentTimer;
+  }

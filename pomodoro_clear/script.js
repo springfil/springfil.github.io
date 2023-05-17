@@ -15,6 +15,7 @@ const timers = {
 
 let currentTimer = timers["pomodoro"];
 let timeLeft = null;
+let circleLeft = null;
 let timerId = null;
 
 function updateTimer() {
@@ -30,14 +31,15 @@ function setTimer(timer) {
   stopTimer();
   currentTimer = timers[timer];
   timeLeft = timers[timer];
+  circleLeft = timers[timer];
   updateCircle();
   updateTimer();
 }
 
 function updateCircle() {
-  const l = ((timeLeft / currentTimer) * 100).toFixed(2);
+  const l = ((timeLeft / circleLeft) * 100).toFixed(2);
   const k = (100 - l).toFixed(2);
-  console.log(`timeLeft - ${timeLeft}, currentTimer - ${currentTimer}, l - ${l}, k - ${l}`)
+  console.log(`timeLeft - ${timeLeft}, currentTimer|circleLeft - ${currentTimer}${circleLeft}, l - ${l}, k - ${l}`)
 
   C1_CIRCLE.style.strokeDasharray = `${l} ${k}`;
   C2_CIRCLE.style.strokeDasharray = `${k} ${l}`;

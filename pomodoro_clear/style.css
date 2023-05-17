@@ -1,0 +1,124 @@
+body {
+  background-color: #2c3e50;
+  display: flex;
+  font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#timer-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#pomodoro,
+#short-break,
+#long-break {
+  background-color: #2d3741;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  transition: transform 0.5s ease-in-out;
+}
+
+#pomodoro:hover,
+#short-break:hover,
+#long-break:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+#action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#start,
+#stop {
+  margin: 0 10px;
+  margin-top: 20px;
+}
+
+#start {
+  background-color: #1d643b;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.8s ease;
+}
+
+#start:hover {
+  background-color: #2ecc71;
+}
+
+#stop {
+  background-color: #741f16;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.8s ease;
+}
+
+#stop:hover {
+  background-color: #c0392b;
+}
+
+#timer {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 3rem;
+  color: #000000;
+  margin-bottom: 0;
+  text-align: center;
+  text-shadow: 0 0 10px rgb(255 0 0);
+}
+
+circle {
+  transition: all 0.1s linear;
+}
+
+#c1 {
+  transition: all 1s linear;
+  stroke:  #741f16;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+#c2 {
+  transition: all 1s linear;
+  stroke: #c0392b;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+#timer {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  font-size: 36px;
+
+}
+svg {
+  position: relative;
+}

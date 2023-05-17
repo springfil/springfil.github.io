@@ -27,6 +27,16 @@ function updateTimer() {
   TIMER_ELEMENT.innerText = `${minutes}:${seconds}`;
 }
 
+function updateCircle() {
+  const l = ((timeLeft / circleLeft) * 100).toFixed(2);
+  const k = (100 - l).toFixed(2);
+  console.log(`timeLeft - ${timeLeft}, currentTimer|circleLeft - ${currentTimer}|${circleLeft}, l - ${l}, k - ${l}`)
+
+  C1_CIRCLE.style.strokeDasharray = `${l} ${k}`;
+  C2_CIRCLE.style.strokeDasharray = `${k} ${l}`;
+  C1_CIRCLE.style.strokeDashoffset = l;
+}
+
 function setTimer(timer) {
   stopTimer();
   currentTimer = timers[timer];
@@ -34,16 +44,6 @@ function setTimer(timer) {
   circleLeft = timers[timer];
   updateCircle();
   updateTimer();
-}
-
-function updateCircle() {
-  const l = ((timeLeft / circleLeft) * 100).toFixed(2);
-  const k = (100 - l).toFixed(2);
-  console.log(`timeLeft - ${timeLeft}, currentTimer|circleLeft - ${currentTimer}${circleLeft}, l - ${l}, k - ${l}`)
-
-  C1_CIRCLE.style.strokeDasharray = `${l} ${k}`;
-  C2_CIRCLE.style.strokeDasharray = `${k} ${l}`;
-  C1_CIRCLE.style.strokeDashoffset = l;
 }
 
 POMODORO_BUTTON.addEventListener("click", setTimer.bind(null, "pomodoro"));

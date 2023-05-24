@@ -26,7 +26,7 @@
         aboba.say(); //Beluga -абобус
 
         console.log(typeof Abobus) //function
-        console.log(Abobus === Abobus.prototype.constructor.prototype) // true
+        console.log(Abobus === Abobus.prototype.constructor.prototype.constructor) // true
         console.log(Abobus.prototype.say) // ƒ say()
         console.log(Object.getOwnPropertyNames(Abobus.prototype)) //["constructor", "say"]
     }

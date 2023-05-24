@@ -8,7 +8,7 @@ const START_BUTTON = document.getElementById("start");
 const STOP_BUTTON = document.getElementById("stop");
 
 const timers = {
-  pomodoro: 1 * 60,
+  pomodoro: 1 * 60
   "short-break": 5,
   "long-break": 10,
 };

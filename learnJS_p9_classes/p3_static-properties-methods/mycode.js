@@ -1,4 +1,4 @@
-class Person {
+{class Person {
   constructor(name, age) {
     this.name = name;
     this.age = age;
@@ -24,3 +24,20 @@ let people = [
 people.sort(Person.compareByName);
 
 console.log(people[0].name); // Alita
+}
+
+{
+  class User {
+    static staticMethod() {
+      console.log(this === User);
+    }
+      neStatic(){
+      console.log(this instanceof User);
+         console.log(this.__proto__ === User.prototype);
+          
+      }
+  }
+  
+  User.staticMethod(); // true
+  new User().neStatic(); // true true
+}

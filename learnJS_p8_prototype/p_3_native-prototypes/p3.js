@@ -3,7 +3,7 @@
 //Получение название методов св-ва prototype
 {
     var methods = Object.getOwnPropertyNames(Object.prototype);
-    onsole.log(methods);
+    console.log(methods);
 }
 
 

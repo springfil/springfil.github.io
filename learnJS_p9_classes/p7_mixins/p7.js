@@ -26,7 +26,6 @@
 }
 
 
-
 {
   // В примере ниже sayHiMixin наследует от sayMixin:
   const sayMixin = {

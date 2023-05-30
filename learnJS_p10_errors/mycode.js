@@ -110,3 +110,19 @@
     console.log(e.message, e.name);
   } //Неверно указан номер          Исключение, определённое пользователем
 }
+
+
+
+{ 
+  const aboba = function () {
+    try{
+      return 'zopa'
+    } catch {
+  
+    } finally {
+      return 'MEGAZOPA'
+    }
+  }
+
+  aboba(); //'MEGAZOPA'
+}

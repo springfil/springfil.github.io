@@ -2,9 +2,11 @@ class Teapot {
   constructor(power) {
     this.power = power; 
     this.waterAmount = 0; 
-    this.timerId = null;
     this.connected = false;
+    this.timerId = null;
     this.intervalId = null;
+    this.coolIntervalId = null;
+    this.currentTemperature = this.#roomTemperature;
   }
 
   #waterHeatCapipacity = 4200; 
@@ -18,7 +20,7 @@ class Teapot {
   // ΔT - насколько нагреть power - мощность
 
   get heatingTime() {
-    return (this.waterAmount * this.#waterHeatCapipacity * (this.#maxTemperature - this.#roomTemperature)) / this.power;
+    return (this.waterAmount * this.#waterHeatCapipacity * (this.#maxTemperature - this.currentTemperature)) / this.power;
   }
 
   completeHeating() {
@@ -74,6 +76,14 @@ class Teapot {
     return true;
   }
 
+  tempUp(){
+    this.intervalId = setInterval(() => {
+      this.currentTemperature += 1;
+      console.log(`Чайник нагревается.T — ${this.currentTemperature} °C`);
+    }, 100)
+    
+  }
+  
   start() {
     if (this.checkConnection() && this.checkWaterLevel()) {
       if (this.#heating) {
@@ -81,28 +91,58 @@ class Teapot {
         return;
       }
       
-      let remainingTime = this.heatingTime;
-      
-      this.intervalId = setInterval(() => {
-        remainingTime -= 10;
-        const temperature = ((this.heatingTime - remainingTime) / this.heatingTime * (this.#maxTemperature - this.#roomTemperature) + this.#roomTemperature).toFixed(2);
-        console.log(`Текущая температура: ${temperature} °C`);
-      }, 10);
+      this.tempUp();
       
       this.timerId = setTimeout(() => {
         clearInterval(this.intervalId);
-        this.completeHeating();
         this.#heating = false; 
+        this.completeHeating();
+        this.tempDown();
       }, this.heatingTime);
       
-      console.log(`Чайник включен. Время закипания - ${this.heatingTime} мс`);
+      console.log(`Чайник включен. Время закипания - ${this.heatingTime} мс \n текущая температура — ${this.currentTemperature}°C \n Текущий уровень воды — ${this.waterAmount}мл.`);
       this.#heating = true;  
     }
+    
+    clearInterval(this.coolIntervalId);
+  }
+  
+  tempDown() {
+    this.coolIntervalId = setInterval(() => {
+      this.currentTemperature -= 1;
+      console.log(`Чайник остывает. T — ${this.currentTemperature}°C`);
+      
+      if (this.currentTemperature <= this.#roomTemperature + 1) {
+        clearInterval(this.coolIntervalId);
+        console.log(`Чайник полностью остыл до комнатной температуры.`);
+      }
+      
+      if(this.#heating) {
+        clearInterval(this.coolIntervalId);
+      }
+    }, 300)
+    
+  }
+  
+  stop() {
+    if (!this.#heating) {
+      console.log("Ошибка! Чайник еще не начал кипеть");
+      return;
+    }
+    
+    clearInterval(this.intervalId);
+    clearTimeout(this.timerId);
+    this.#heating = false; 
+    
+    console.log(`Чайник остановлен, текущая температура — ${this.currentTemperature}°C \n Текущий уровень воды — ${this.waterAmount}мл. \n Можно отлить или добавить воды, время закипания изменится`);
+    
+    this.tempDown()
   }
 }
 
 
 // const teapot = new Teapot(20000); // чайник большой мощности
+
 // teapot.start();
 // teapot.connected = true;
 // teapot.start();
@@ -110,7 +150,7 @@ class Teapot {
 // teapot.start();
 // teapot.pourOutWater(1600); // вылили больше чем есть
 // teapot.start();
-// teapot.waterAmount = 500; 
+// teapot.waterAmount = 800; 
 // teapot.start();
-// teapot.start();
-// teapot.start();
+
+// teapot.stop()

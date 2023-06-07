@@ -76,11 +76,15 @@ class Teapot {
     return true;
   }
 
+  get timeTempUp() {
+    return this.heatingTime / (this.#maxTemperature - this.currentTemperature);
+  }
+
   tempUp(){
     this.intervalId = setInterval(() => {
       this.currentTemperature += 1;
       console.log(`Чайник нагревается.T — ${this.currentTemperature} °C`);
-    }, 100)
+    }, this.timeTempUp)
     
   }
   

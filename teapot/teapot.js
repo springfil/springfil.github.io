@@ -4,6 +4,7 @@ class Teapot {
     this.waterAmount = 0; 
     this.timerId = null;
     this.connected = false;
+    this.intervalId = null;
   }
 
   #waterHeatCapipacity = 4200; 
@@ -70,24 +71,7 @@ class Teapot {
       `Вы вылили ${amount} мл воды. Текущий уровень воды: ${this.waterAmount} мл.`
     );
 
-    // if (this.waterAmount <= this.#maxWaterLevel) {
-    //   this.start()
-    // }
-
     return true;
-  }
-
-  showHeatingStatus() {
-    let timeLeft = this.heatingTime;
-    const intervalId = setInterval(() => {
-      if (!this.#heating) { 
-        clearInterval(intervalId);
-        return;
-      }
-      const heatingProgress = 'ТУТ ТУПЛЮ';
-      console.log(`Уровень нагрева: ${heatingProgress} | Осталось времени: ${timeLeft/1000} сек.`);
-      timeLeft -= 1000;
-    }, 1000);
   }
 
   start() {
@@ -96,11 +80,21 @@ class Teapot {
         console.log("Ошибка! Чайник уже включен. Дождитесь окончания работы");
         return;
       }
-      this.showHeatingStatus();
+      
+      let remainingTime = this.heatingTime;
+      
+      this.intervalId = setInterval(() => {
+        remainingTime -= 10;
+        const temperature = ((this.heatingTime - remainingTime) / this.heatingTime * (this.#maxTemperature - this.#roomTemperature) + this.#roomTemperature).toFixed(2);
+        console.log(`Текущая температура: ${temperature} °C`);
+      }, 10);
+      
       this.timerId = setTimeout(() => {
+        clearInterval(this.intervalId);
         this.completeHeating();
         this.#heating = false; 
       }, this.heatingTime);
+      
       console.log(`Чайник включен. Время закипания - ${this.heatingTime} мс`);
       this.#heating = true;  
     }
@@ -117,4 +111,6 @@ class Teapot {
 // teapot.pourOutWater(1600); // вылили больше чем есть
 // teapot.start();
 // teapot.waterAmount = 500; 
+// teapot.start();
+// teapot.start();
 // teapot.start();

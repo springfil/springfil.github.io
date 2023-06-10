@@ -1,37 +1,34 @@
-
-//возврат промисов 
-new Promise(function(resolve, reject) {
-
+//возврат промисов
+new Promise(function (resolve, reject) {
   setTimeout(() => resolve(1), 1000);
+})
+  .then(function (result) {
+    console.log(result); // 1
 
-}).then(function(result) {
+    return new Promise((resolve, reject) => {
+      // (*)
+      setTimeout(() => resolve(result * 2), 1000);
+    });
+  })
+  .then(function (result) {
+    // (**)
 
-  console.log(result); // 1
+    console.log(result); // 2
 
-  return new Promise((resolve, reject) => { // (*)
-    setTimeout(() => resolve(result * 2), 1000);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(result * 2), 1000);
+    });
+  })
+  .then(function (result) {
+    console.log(result); // 4
   });
 
-}).then(function(result) { // (**)
 
-  console.log(result); // 2
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(result * 2), 1000);
-  });
-
-}).then(function(result) {
-
-  console.log(result); // 4
-
-});
-
-
-
+  
 //пример loadscript
 function loadScript(src) {
-  return new Promise(function(resolve, reject) {
-    let script = document.createElement('script');
+  return new Promise(function (resolve, reject) {
+    let script = document.createElement("script");
     script.src = src;
 
     script.onload = () => resolve(script);
@@ -58,13 +55,13 @@ function loadScript(src) {
 
 //вариант со стрелками
 loadScript("/article/promise-chaining/one.js")
-  .then(script => loadScript("/article/promise-chaining/two.js"))
-  .then(script => loadScript("/article/promise-chaining/three.js"))
-  .then(script => {
+  .then((script) => loadScript("/article/promise-chaining/two.js"))
+  .then((script) => loadScript("/article/promise-chaining/three.js"))
+  .then((script) => {
     // скрипты загружены, мы можем использовать объявленные в них функции
     one(); //1
     two(); //2
-    three();  //3
+    three(); //3
   });
 
 
@@ -83,15 +80,13 @@ class Thenable {
   }
 }
 
-new Promise(resolve => resolve(1))
-  .then(result => {
+new Promise((resolve) => resolve(1))
+  .then((result) => {
     return new Thenable(result); // (*)
   })
-  .then( console.log); // показывает 2 через 1000мс
+  .then(console.log); // показывает 2 через 1000мс
 
-//сделать json c обьектами user/name нашей группы на гитхабе   сделать фетч загрузка и фетч имен 
-
-
+//сделать json c обьектами user/name нашей группы на гитхабе   сделать фетч загрузка и фетч имен
 
 //пример fetch
 //let promise = fetch(url);

@@ -1,50 +1,46 @@
 class Teapot {
   constructor(power) {
-    this.power = power; // мощность (ватт)
-    this.waterAmount = 0; // уровень воды (вес в мг)
-    this.waterHeatCapipacity = 4200; // удельная темплоемкость воды
-    this.maxWaterLevel = 1500;
-    this.Connected = false; // чайник не в сети
+    this.power = power; 
+    this.waterAmount = 0; 
+    this.connected = false;
     this.timerId = null;
-    this.heating = false;
-  }
-  //формула для расчета HeatingTime = c*m*ΔT / power
-  //с - удельная темплоемкость воды / m - уровень воды
-  // ΔT - насколько нагреть power - мощность
-  HeatingTime() {
-    let time = (this.waterAmount * this.waterHeatCapipacity * 74) / this.power;
-    return time;
+    this.intervalId = null;
+    this.coolIntervalId = null;
+    this.currentTemperature = this.#roomTemperature;
   }
 
-  CompleteHeating() {
+  #waterHeatCapipacity = 4200; 
+  #maxWaterLevel = 1500;
+  #heating = false;
+  #maxTemperature = 100;
+  #roomTemperature = 26;
+
+  //формула для расчета heatingTime = c*m*ΔT / power
+  //с - удельная темплоемкость воды / m - уровень воды
+  // ΔT - насколько нагреть power - мощность
+
+  get heatingTime() {
+    return (this.waterAmount * this.#waterHeatCapipacity * (this.#maxTemperature - this.currentTemperature)) / this.power;
+  }
+
+  completeHeating() {
     console.log(`Закипел!`);
     clearTimeout(this.timerId);
     this.timerId = null;
   }
 
-  CheckWaterLevel() {
+  checkWaterLevel() {
     if (this.waterAmount === 0) {
       console.log(
-        "Ошибка! Чайник пустой. Добавить воды instance.waterAmount = somevalue"
+        `Ошибка! Чайник пустой. Добавить воды ${this.constructor.name.toLowerCase()}.waterAmount = somevalue`
       );
       return false;
     }
 
-    if (this.waterAmount > this.maxWaterLevel) {
+    if (this.waterAmount > this.#maxWaterLevel) {
+      this.waterAmount = this.#maxWaterLevel;
       console.log(
-        "Ошибка! Вы перелили воду. Отлить instance.PourOutWater(somevalue)"
-      );
-      this.waterAmount = this.maxWaterLevel;
-      return false;
-    }
-
-    return true;
-  }
-
-  CheckConnection() {
-    if (!this.Connected) {
-      console.log(
-        "Ошибка! Не включен в розетку.Включить в сеть instance.Connected = true "
+        `Ошибка! Превышен уровень воды ${this.#maxWaterLevel} мл., теперь чайник полный. Отлить ${this.constructor.name.toLowerCase()}.pourOutWater(somevalue)`
       );
       return false;
     }
@@ -52,12 +48,23 @@ class Teapot {
     return true;
   }
 
-  PourOutWater(amount) {
+  checkConnection() {
+    if (!this.connected) {
+      console.log(
+        `Ошибка! Не включен в розетку. Включите в сеть ${this.constructor.name.toLowerCase()}.connected = true`
+      );
+      return false;
+    }
+
+    return true;
+  }
+
+  pourOutWater(amount) {
     if (amount > this.waterAmount) {
-      console.log(
-        "Ошибка! Нельзя отлить больше, чем есть воды. Вы вылили всю воду!"
-      );
       this.waterAmount = 0;
+      console.log(
+        `Ошибка! Нельзя отлить больше, чем есть воды. Текущий уровень воды: ${this.waterAmount} мл`
+      );
       return false;
     }
 
@@ -66,41 +73,58 @@ class Teapot {
       `Вы вылили ${amount} мл воды. Текущий уровень воды: ${this.waterAmount} мл.`
     );
 
-    // if (this.waterAmount <= this.maxWaterLevel) {
-    //   this.start()
-    // }
-
     return true;
   }
+  get timeTempUp() {
+    return this.heatingTime / (this.#maxTemperature - this.currentTemperature);
+  }
 
+  tempUp(){
+    this.intervalId = setInterval(() => {
+      this.currentTemperature += 1;
+      console.log(`Чайник нагревается.T — ${this.currentTemperature} °C`);
+    }, this.timeTempUp)
+    
+  }
+  
   start() {
-    if (this.CheckConnection() && this.CheckWaterLevel()) {
-      if (this.heating) {
+    if (this.checkConnection() && this.checkWaterLevel()) {
+      if (this.#heating) {
         console.log("Ошибка! Чайник уже включен. Дождитесь окончания работы");
         return;
       }
-
+      
+      this.tempUp();
+      
       this.timerId = setTimeout(() => {
         this.CompleteHeating();
         this.heating = false; 
       }, this.HeatingTime());
-      
       console.log(`Чайник включен. Время закипания - ${this.HeatingTime()} мс`);
       this.heating = true;  
     }
+    
+    clearInterval(this.intervalId);
+    clearTimeout(this.timerId);
+    this.#heating = false; 
+    
+    console.log(`Чайник остановлен, текущая температура — ${this.currentTemperature}°C \n Текущий уровень воды — ${this.waterAmount}мл. \n Можно отлить или добавить воды, время закипания изменится`);
+    
+    this.tempDown()
   }
 }
 
 
 // const teapot = new Teapot(20000); // чайник большой мощности
+
 // teapot.start();
-// teapot.Connected = true;
+// teapot.connected = true;
 // teapot.start();
 // teapot.waterAmount = 2000; //добавили выше уровня
 // teapot.start();
-// teapot.PourOutWater(1600); // вылили больше чем есть
+// teapot.pourOutWater(1600); // вылили больше чем есть
 // teapot.start();
-// teapot.waterAmount = 500; // налили нормально
+// teapot.waterAmount = 800; 
 // teapot.start();
-// teapot.start();
-// teapot.start();
+
+// teapot.stop()

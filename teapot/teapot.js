@@ -84,6 +84,7 @@ class Teapot {
         this.CompleteHeating();
         this.heating = false; 
       }, this.HeatingTime());
+      
       console.log(`Чайник включен. Время закипания - ${this.HeatingTime()} мс`);
       this.heating = true;  
     }

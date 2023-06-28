@@ -1,6 +1,6 @@
 module.exports = {
   devtool: "source-map", // для дебага
-  // watch: true,
+  watch: true,
   entry: {
     // точка входа
     filename: "./app.js",
@@ -9,6 +9,22 @@ module.exports = {
     //точка выхода - после того как прошла сборка
     filename: "bundle.js",
   },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env']
+            ]
+          }
+        }
+      }
+    ]
+  }
 };
 // module: {
 //   rules: [

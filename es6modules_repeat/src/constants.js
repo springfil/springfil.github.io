@@ -11,9 +11,9 @@ export { value, VALUE as valueUpperCase };
 
 export const usersURL = "https://jsonplaceholder.typicode.com/users";
 
-// export function mapUsers(users) = {
-//     return users.map( response => {
-//         const { id, name, username } = response;
-//         return { id, name, username };
-//     })
-// }
+export function mapUsers(users) {
+    return users.map( response => {
+        const { id, name, username } = response;
+        return { id, name, username };
+    })
+}

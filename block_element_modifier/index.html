@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конспект по БЭМ</title>
+</head>
+<body>
+    <!-- Что это вообще такое? -->
+    БЭМ(блок-элемент-модификатор) - компонентный подход к разработке. 
+    Основной принцип которого - разделение на независимые блоки
+   
+    <!-- Блок -->
+    Блок - функционально независимый компонент , в html представлен классом,
+    Отвечает на вопрос что это? - а не какой? 
+
+    Блок не должен влиять на свое окружение, ему не следует задавать геометрию.
+    Допустима любая вложенность блоков
+
+    <!-- Элемент -->
+    Элемент - неотрывная часть блока 
+    Так же как для блока имя класса должно отвечать на вопрос «Что это?», но синтаксис записи будет следующим:
+    имякласса__имяэлемента
+
+    <input class="search-form__input">
+    </input> search-form__input (Элемент `input` блока `search-form`)
+    
+    Не катит: block__elem1__elem2
+
+    <!-- Модификатор   -->
+    Модификатор - применяется для определения или уточнения внешнего вида, состояния или поведения блока либо элемента. 
+    Когда нужно выделить некий объект из множества таких же.
+
+    Имя класса модификатора должно отвечать на вопрос «какой?» «как выглядит?» «как себя ведет\состояние?»
+    Модификатор дописывается к классу блока либо элемента путем дублирования основного класса 
+    с добавлением одного нижнего подчеркивания и имени модификатора.
+
+    <nav class="menu">
+        <a href="" class="menu__item menu__item_active">ТУДА</a>
+        <a href="" class="menu__item">СЮДА</a>
+    </nav>
+
+        <!-- Верно. Блок `search-form` имеет модификатор `size` со значением `small`-->
+    <form class="search-form search-form_size_small">
+        <input class="search-form__input">
+
+        <button class="search-form__button">Найти</button>
+    </form>
+
+        <!-- Неверно. Отсутствует модифицируемый класс `search-form` -->
+    <form class="search-form_size_small">
+        <input class="search-form__input">
+
+        <button class="search-form__button">Найти</button>
+    </form>
+
+    <!-- Микс -->
+    Прием, позволяющий использовать разные БЭМ-сущности на одном DOM-узле.
+    <div class="btn-panel">
+        <div class="about__title title"></div>
+        <div class="about__subtitle subtitle"></div>
+    </div>
+
+
+    <!-- Структура элементов -->
+    Структура элементов в методологии представлена плоским списком элементов, что позволяет
+    при изменении DOM-структуры сохранять правила для элементов 
+
+    для 
+    .block {}
+    .block__elem1 {}
+    .block__elem2 {}
+    .block__elem3 {}
+
+    1-й случай:
+    <div class="block">
+        <div class="block__elem1">
+            <div class="block__elem2">
+                <div class="block__elem3"></div>
+            </div>
+        </div>
+    </div>
+
+    2-й случай:
+    <div class="block">
+        <div class="block__elem1">
+            <div class="block__elem2"></div>
+        </div>
+
+        <div class="block__elem3"></div>
+    </div>
+
+
+
+    <!-- Принципы работы с элементами -->
+        <!-- Вложенность элементов  -->
+    <!-- Верно -->
+    <div class="row">
+        <!-- Элемент `column` -->
+        <div class="row__column ">
+            <!-- Элемент `item` -->
+            <div class="row__item"></div>
+        </div>
+    </div>
+
+    <!-- Неверно -->
+    <div class="row">
+        <!-- Элемент `column` -->
+        <div class="row__column ">
+            <!-- Элемент `item` -->
+            <div class="row__column__item"></div>
+        </div>
+    </div>
+
+        <!-- Принадлежность элементов -->
+    <!-- Верный пример -->
+    <div class=" about">
+        <div class="about__title"></div>
+        <div class="about__subtitle"></div>
+    </div>
+
+    <!-- Неверный пример -->
+    <div class=" about">
+        <div class="about__title"></div>
+    </div>
+    <div class="about__subtitle"></div>
+
+        <!-- Необязательность элементов -->
+    <div class=" about">
+        <div class="title"></div>
+        <div class="subtitle"></div>
+    </div>
+
+
+
+    <!-- псевдокод компонента игрока -->
+    <div class="game-person">
+        <h3 class="game-person__title">Nezuko</h3>
+        
+        <div class="game-person__image">
+            <img class="game-person__image-size" :src="imageUrl" alt="" />
+        </div>
+
+        <div class="game-person__progress-bar">
+            <div class="game-person__progress-bar-inner" :style="{ width: hpPerson + 'px' }"></div>
+        </div>
+    </div>
+    <!-- Стили -->
+    .game-person {
+    &__title {}
+
+    &__image {
+        &-size {}
+    }
+
+    &__progress-bar {
+        &-inner {}
+    }
+    }
+</body>
+</html>
